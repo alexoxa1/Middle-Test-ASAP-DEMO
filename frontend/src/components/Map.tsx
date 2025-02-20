@@ -130,7 +130,11 @@ const Map = () => {
               <div>
                 <p>{marker.comment}</p>
                 <button onClick={() => setSelectedMarker(marker)}>Edit</button>
-                <button onClick={handleDeleteMarker}>Delete</button>
+                <button onClick={() => {
+                  if (window.confirm('Are you sure you want to delete this marker?')) {
+                    deleteMutation.mutate(marker.id);
+                  }
+                }}>Delete</button>
               </div>
             </Popup>
           </Marker>
