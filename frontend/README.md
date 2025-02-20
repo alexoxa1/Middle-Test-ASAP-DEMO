@@ -1,50 +1,173 @@
-# React + TypeScript + Vite
+# Interactive Map Project Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This project is a React-based interactive map application that allows users to manage markers with comments. Built with React, Leaflet, and TanStack Query, it provides a robust solution for marker CRUD operations with local storage persistence.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🏗 Architecture
 
-## Expanding the ESLint configuration
+### Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Framework: React with TypeScript
+- Build Tool: Vite
+- Map Library: Leaflet via react-leaflet
+- State Management: TanStack Query
+- Modal Component: react-modal
+- Data Persistence: Local Storage API
 
-- Configure the top-level `parserOptions` property like this:
+### Key Components
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+#### 1. Map Component
+
+- Main map interface using Leaflet
+- Handles marker interactions
+- Manages map events and marker state
+
+#### 2. MarkerModal Component
+
+- Modal interface for marker operations
+- Handles create/edit/delete marker forms
+- Form validation and user input
+
+#### 3. Markers API
+
+- Local storage-based API implementation
+- CRUD operations for markers
+- Simulated network delays
+
+## 🔧 Setup & Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## 🎯 Features
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Map Display
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+- Interactive map with drag and zoom capabilities
+- Default center: [51.505, -0.09] (London)
+- Default zoom level: 13
+
+### Marker Management
+
+- **Create**: Click anywhere on map to add marker
+- **Read**: Click markers to view comments
+- **Update**: Edit marker comments via modal
+- **Delete**: Remove markers with confirmation
+
+### Data Persistence
+
+- Markers stored in local storage
+- Initial mock data provided
+- Simulated API latency for realistic behavior
+
+## 🏛 Project Structure
+
 ```
+frontend/
+├── src/
+│   ├── api/          # API layer
+│   ├── components/   # React components
+│   ├── types/        # TypeScript types
+│   └── App.tsx       # Root component
+├── package.json
+└── tsconfig.json
+```
+
+## 💡 Implementation Details
+
+### State Management
+
+TanStack Query was chosen for:
+
+- Built-in cache management
+- Automatic background updates
+- Loading/error states
+- Optimistic updates
+
+### Map Library Choice
+
+Leaflet was selected because:
+
+- Open-source with no API key required
+- Excellent React integration
+- Lightweight and performant
+- Rich feature set
+
+### Type Safety
+
+- Full TypeScript implementation
+- Strict type checking enabled
+- Custom types for markers and DTOs
+
+## 🔄 API Integration
+
+### Marker Types
+
+```typescript
+interface Marker {
+  id: number;
+  latitude: number;
+  longitude: number;
+  comment: string;
+}
+```
+
+### Available Operations
+
+- `GET /markers` - Fetch all markers
+- `POST /marker` - Create new marker
+- `PUT /marker/:id` - Update marker
+- `DELETE /marker/:id` - Delete marker
+
+## 🚀 Performance Considerations
+
+### Query Optimization
+
+- Efficient cache management via TanStack Query
+- Optimistic updates for better UX
+
+### Map Performance
+
+- Lazy loading of map tiles
+- Efficient marker rendering
+
+### State Updates
+
+- Minimal re-renders
+- Optimized marker updates
+
+## 📝 Development Guidelines
+
+### Code Style
+
+- Follow ESLint configuration
+- Use TypeScript strict mode
+- Maintain component isolation
+
+### Git Workflow
+
+- Feature branches
+- Meaningful commit messages
+- Regular rebasing
+
+### Testing
+
+- Component testing
+- Integration testing
+- E2E testing when needed
+
+## 🔍 Error Handling
+
+- User-friendly error messages
+- API error handling
+- Form validation
+- Fallback UI states
